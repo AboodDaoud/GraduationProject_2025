@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "_RegistrationLayout";
+}
+@model GraduationProject.Models.RegisterViewModel
+
+<div class="signup-card">
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index" style="text-decoration: none; color: inherit;">
+        <img src="~/img/Group.png" alt="Logo" />
+        </a>
+    </div>
+    <h1>إنشاء حساب</h1>
+
+    <form asp-action="Register" method="post">
+        <div class="form-row">
+            <div class="form-group">
+                <label asp-for="FirstName">الاسم الأول</label>
+                <input asp-for="FirstName" placeholder="الاسم الأول">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName">الاسم الثاني</label>
+                <input asp-for="LastName" placeholder="الاسم الثاني">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label asp-for="Email">البريد الإلكتروني</label>
+                <input asp-for="Email" type="email" placeholder="example@gmail.com">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber">رقم الهاتف</label>
+                <input asp-for="PhoneNumber" type="tel" placeholder="رقم الهاتف">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label asp-for="Password">كلمة المرور</label>
+                <input asp-for="Password" type="password" placeholder="كلمة المرور">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword">تأكيد كلمة المرور</label>
+                <input asp-for="ConfirmPassword" type="password" placeholder="تأكيد كلمة المرور">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <button type="submit" class="submit-btn">إنشاء حساب</button>
+
+        <div class="social-login">
+            <button type="button" class="social-btn">
+                <img src="~/img/image 157.png" alt="Google" />
+                Google
+            </button>
+            <button type="button" class="social-btn">
+                <img src="~/img/image 156.png" alt="Facebook" />
+                Facebook
+            </button>
+        </div>
+
+        <div class="login-text">
+            لديك حساب بالفعل؟ <a asp-action="Login" asp-controller="Login">تسجيل الدخول</a>
+        </div>
+    </form>
+</div>

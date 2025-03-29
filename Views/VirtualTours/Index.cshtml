@@ -1,0 +1,225 @@
+﻿@model List<City>
+@{
+    ViewData["Title"] = "الجولات الافتراضية (AR)";
+}
+<!-- 3 -->
+<div class="slideshow">
+    <div class="text">
+        <h2>
+            "اكتشف فلسطين : جولات افتراضية عبر الزمن"
+        </h2>
+        <p>
+            "سافر عبر العصور واستكشف تراث فلسطين الغني ومعالمها التاريخية الفريدة من أي مكان في العالم."
+        </p>
+
+        <a asp-controller="VirtualToursAR2" asp-action="Index" class="button">ابدأ جولتك الآن </a>
+
+    </div>
+</div>
+<!-- 4 -->
+<div class="heritage-container">
+    <div class="heritage-content" dir="rtl">
+        <h2>الجولات الافتراضية</h2>
+        <p>
+            "تعلم خطوة بخطوة كيف تستكشف التاريخ الفلسطيني ومعالمه الثقافية من خلال جولات افتراضية تفاعلية. اكتشف
+            الأماكن، استمتع بالتفاصيل، وانغمس في التجربة من راحة منزلك."
+        </p>
+
+        <h3 class="video-title">"كيف تستمتع بجولتك الافتراضية؟"</h3>
+        <p>
+            "الجولات الافتراضية هي تجربة تفاعلية تمنحك فرصة استكشاف معالم فلسطين التاريخية والثقافية من أي مكان في العالم. باستخدام تقنيات متطورة"
+        </p>
+
+        <p>
+            "شاهد هذا الفيديو القصير لاكتشاف كيفية الاستمتاع بتجربة الجولات الافتراضية. ستتعرف على طريقة استخدام الخريطة التفاعلية، التنقل بين المواقع، واستكشاف المعالم بتقنية 360 درجة. انطلق الآن واكتشف التراث الفلسطيني كما لو كنت هناك فعليًا!"
+        </p>
+    </div>
+    <div class="heritage-media">
+        <div class="video-overlay">
+            <img src="../img/a.png" alt="Image Description">
+            <div class="video-text">
+                <h4>
+                    "كيف تستمتع بجولتك الافتراضية؟"
+                </h4>
+                <p>
+                    فيديو قصير للتعرف على كيفية التنقل بين المواقع واستكشاف التراث الفلسطيني بسهولة."
+                </p>
+                <p>تاريخ الإنشاء: 1/12/2024</p>
+            </div>
+            <div class="play-button">&#9658;</div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetYouTubeEmbedUrl(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+            return "";
+
+        Uri uri = new Uri(url);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        string videoId = query["v"];
+
+        return !string.IsNullOrEmpty(videoId) ? $"https://www.youtube.com/embed/{videoId}" : url;
+    }
+}
+
+
+<!-- 5 -->
+<div class="virtual-tour-content">
+    <div class="tour-intro">
+        <h2>المدن المتاحة للقيام بجولة افتراضية بها</h2>
+        <p>
+            تعرف على القرى الفلسطينية التي تحمل بين أزقتها تاريخاً عريقاً وتراثاً متجذراً. اكتشف
+            حكايات الأرض وأسرار البيوت القديمة التي تحكي قصة وطن لا ينسى.
+        </p>
+        <div class="tour-cities-grid">
+            @foreach (var city in Model)
+            {
+                <div class="tour-city-card">
+                    <img src="@city.City_ImageUrl" alt="@city.City_Name" class="tour-city-image">
+                    <div class="tour-city-overlay">
+                        <h3 class="tour-city-name">@city.City_Name</h3>
+                        <p class="tour-city-description">@city.City_Highlights</p>
+                        <button class="tour-start-button" data-bs-toggle="modal" data-bs-target="#tourModal-@city.City_Id">
+                            ابدأ الجولة
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal for video -->
+                <div class="modal fade" id="tourModal-@city.City_Id" tabindex="-1" aria-labelledby="tourModalLabel-@city.City_Id" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="tourModalLabel-@city.City_Id">@city.City_Name - جولة افتراضية</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="ratio ratio-16x9">
+                                    <iframe id="video-@city.City_Id"
+                                        src="@GetYouTubeEmbedUrl(city.VirtualTourLink)"
+                                        title="جولة افتراضية"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            @* <div class="tour-city-card">
+            <img src="../img/001.png" alt="بيت لحم" class="tour-city-image">
+            <div class="tour-city-overlay">
+            <h3 class="tour-city-name">بيت لحم</h3>
+            <p class="tour-city-description">مسقط رأس السيد المسيح والتوبة السلام</p>
+            <button class="tour-start-button">ابدأ الجولة</button>
+            </div>
+            </div>
+
+            <div class="tour-city-card">
+            <img src="../img/002.png" alt="الخليل" class="tour-city-image">
+            <div class="tour-city-overlay">
+            <h3 class="tour-city-name">الخليل</h3>
+            <p class="tour-city-description">موطن الحرم الإبراهيمي وحرفة الزجاج</p>
+            <button class="tour-start-button">ابدأ الجولة</button>
+            </div>
+            </div>
+
+            <div class="tour-city-card">
+            <img src="../img/003.png" alt="نابلس" class="tour-city-image">
+            <div class="tour-city-overlay">
+            <h3 class="tour-city-name">نابلس</h3>
+            <p class="tour-city-description">مدينة الثقافة والتاريخ العريق</p>
+            <button class="tour-start-button">ابدأ الجولة</button>
+            </div>
+            </div>
+
+            <div class="tour-city-card">
+            <img src="../img/004.png" alt="غزة" class="tour-city-image">
+            <div class="tour-city-overlay">
+            <h3 class="tour-city-name">غزة</h3>
+            <p class="tour-city-description">شاطئها الذهبي ومعالمها الأصيلة</p>
+            <button class="tour-start-button">ابدأ الجولة</button>
+            </div>
+            </div>
+
+            <div class="tour-city-card">
+            <img src="../img/005.png" alt="القدس" class="tour-city-image">
+            <div class="tour-city-overlay">
+            <h3 class="tour-city-name">القدس</h3>
+            <p class="tour-city-description">عاصمة التاريخ ومهد الأديان السماوية</p>
+            <button class="tour-start-button">ابدأ الجولة</button>
+            </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<br />
+<!-- 6-->
+<div class="faq-section">
+    <div class="faq-intro">
+        <div>
+            <h2>الأسئلة الشائعة</h2>
+            <p>
+                هنا تجد الإجابات على أكثر الأسئلة التي قد تخطر في بالك حول موقعنا وخدماتنا.
+                إذا لم تجد الإجابة التي تبحث عنها، لا تتردد في التواصل معنا.
+            </p>
+        </div>
+    </div>
+    <div class="faq-container">
+        <div class="faq-accordion">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>ما هي الجولات الافتراضية المتوفرة على الموقع؟</span>
+                    <div class="faq-arrow-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    نوفر جولات افتراضية لأبرز المدن الفلسطينية مثل القدس، غزة، نابلس، الخليل، وبيت لحم. يمكنك استكشاف المعالم التراثية والثقافية لكل مدينة.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>هل الجولات الافتراضية مجانية؟</span>
+                    <div class="faq-arrow-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    نعم، جميع الجولات الافتراضية على الموقع مجانية ومتاحة للجميع.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>كيف يمكنني بدء جولة افتراضية؟</span>
+                    <div class="faq-arrow-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    يمكنك اختيار المدينة التي ترغب بزيارتها من قائمة الجولات أو الصفحة الرئيسية، ثم الضغط على زر "ابدأ جولتك".
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>كيف يمكنني التواصل مع فريق الدعم؟</span>
+                    <div class="faq-arrow-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    يمكنك التواصل معنا عبر نموذج الاتصال في الصفحة الرئيسية، أو من خلال البريد الإلكتروني الخاص بنا.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="support-section">
+        <div class="support-text">لم تجد الإجابة؟ تواصل معنا الآن.</div>
+
+        <a asp-controller="ContactUs" asp-action="ContactUs">
+            <button class="support-button">تواصل معنا</button>
+        </a>
+    </div>
+</div>
+
+<script src="../wwwroot/js/VirtualTours AR.js"><</script>
+

@@ -1,0 +1,231 @@
+.palestine-hero-slideshow {
+    position: relative;
+    max-width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 20px;
+    background-image: url('../../img/1111.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.palestine-hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 4 */
+.palestine-filter-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 15px;
+}
+
+.palestine-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.palestine-filter-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.palestine-filter-select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 5px 25px 5px 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+    /*  ⁄œÌ·  ’„Ì„ «·ﬁ«∆„… «·„‰”œ·… */
+    .palestine-filter-select option {
+        padding: 12px 16px;
+        background-color: white;
+        position: relative;
+    }
+
+        /* ≈÷«›… «·Œÿ «·›«’· „‰ Œ·«· border-bottom */
+        .palestine-filter-select option:not(:last-child) {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+        }
+
+        /*  ’„Ì„ «·ŒÌ«— «·„Õœœ */
+        .palestine-filter-select option:checked,
+        .palestine-filter-select option:hover {
+            background-color: #0066cc;
+            color: white;
+        }
+
+.palestine-divider {
+    width: 1px;
+    height: 30px;
+    background-color: #808000;
+    margin: 0 10px;
+}
+
+.palestine-date-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.palestine-date-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.palestine-filter-select:focus {
+    outline: none;
+}
+
+/* 5 */
+.palestine-archive-header {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    min-width: 300px;
+    /* ·÷„«‰ √‰ «·‰’ ·« Ì’»Õ √’€— „‰ Õœ „⁄Ì‰ */
+    text-align: right;
+    /* ·÷„«‰ √‰ «·‰’ Ì»œ√ „‰ «·Ì„Ì‰ */
+}
+
+    .palestine-archive-header h2 {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        color: olive;
+    }
+
+        .palestine-archive-header h2::before {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid olive;
+            margin-left: 10px;
+        }
+
+.palestine-video-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 15px;
+}
+
+.palestine-video-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #1a2635;
+    cursor: pointer;
+}
+
+.palestine-video-thumbnail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+}
+
+.palestine-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+}
+
+.palestine-video-category {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.palestine-video-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.palestine-video-description {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.palestine-video-date {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.palestine-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .palestine-play-button:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+.palestine-play-icon {
+    width: 20px;
+    height: 20px;
+    fill: #1a2635;
+}
+
+@media (max-width: 992px) {
+    .palestine-video-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .palestine-video-grid {
+        grid-template-columns: 1fr;
+    }
+}

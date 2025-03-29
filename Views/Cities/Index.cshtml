@@ -1,0 +1,134 @@
+﻿@model CityViewModel
+@{
+    ViewData["Title"] = "مدن فلسطين";
+}
+
+
+<div class="slideshow">
+    <div class="text">
+        <h2>“تعرف على مدن وقرى فلسطين”</h2>
+        <p>
+            "تعرف على المدن والقرى الفلسطينية وعلى معالمها التراثية من خلال خريطة فلسطين التفصيلية ."
+        </p>
+    </div>
+</div>
+
+<div class="Div4">
+    <h1>المدن الفلسطينية</h1>
+    <div class="container-cities">
+        <!-- Cities Section -->
+        <div class="cities-section" style="width: 30%; padding-right: 20px;">
+            @foreach (var city in Model.Cities)
+            {
+                <div class="city-card"
+                 data-lat="@city.City_Latitude"
+                 data-lng="@city.City_Longitude"
+                 data-city-id="@city.City_Id"
+                 onclick="handleCityClick(this)" style="background-image: url('@city.City_ImageUrl');">
+                    <div class="city-name">@city.City_Name</div>
+                </div>
+            }
+        </div>
+        <!-- Map Section -->
+        <div class="map-section">
+            <iframe id="map-iframe"
+                    width="100%"
+                    height="600px"
+                    style="border:0; border-radius: 10px;"
+                    loading="lazy"
+                    allowfullscreen
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478495.978105516!2d34.21647982803148!3d31.94657050820464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d7d65f77a55f%3A0x5e6fbbecffb0df6!2sPalestine!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s">
+            </iframe>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="content-wrapper">
+
+    <h2 id="city-title">القرى الفلسطينية في فلسطين</h2>
+    <div class="gallery" id="village-gallery">
+    </div>
+
+
+    <div class="button-container">
+        <a asp-controller="Villages" asp-action="Index" class="more-link" id="more-link">عرض المزيد</a>
+    </div>
+</div>
+
+<script>
+
+    // Initially load with the default view
+    window.onload = () => filterVillages();
+
+    function handleCityClick(cityElement) {
+        updateMap(cityElement);
+        filterVillages(cityElement);
+    }
+
+    function updateMap(element) {
+        const lat = element.getAttribute('data-lat');
+        const lng = element.getAttribute('data-lng');
+        const iframe = document.getElementById('map-iframe');
+
+        // Keep the same zoom level, just move the map to the clicked city's location
+        iframe.src = `https://www.google.com/maps?q=${lat},${lng}&output=embed&z=8`;
+    }
+
+    function filterVillages(cityElement = null) {
+        const titleElement = document.getElementById('city-title');
+        const gallery = document.getElementById('village-gallery');
+        const moreLink = document.getElementById('more-link');
+
+        if (cityElement) {
+            const cityId = cityElement.getAttribute('data-city-id');
+            const cityName = cityElement.querySelector('.city-name').textContent;
+
+            // Update the title to include the selected city name
+            titleElement.textContent = `القرى الفلسطينية في ${cityName}`;
+
+            // Fetch the villages for the selected city
+            fetch(`/Cities/GetByCity?cityId=${cityId}`)
+                .then(response => response.json())
+                .then(villages => {
+                    console.log("Fetched Villages:", villages);
+
+                    gallery.innerHTML = ''; // Clear previous content
+
+                    if (Array.isArray(villages) && villages.length > 0) {
+                        moreLink.style.display = 'inline-block';
+                        moreLink.href = `/Villages/Index?cityId=${cityId}`;
+                        villages.forEach(village => {
+                            gallery.innerHTML += `
+                                                                    <a href="/Villages/Index?cityId=${cityId}" class="frame">
+                                                        <img src="${village.village_ImageUrl}" alt="${village.village_Name}">
+                                                        <div class="overlay">
+                                                            <div class="info">
+                                                                <h3>${village.village_Name}</h3>
+                                                                <p>${village.village_Description}</p>
+                                                                <p>${village.village_Highlights}</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                `;
+                        });
+                    } else {
+                        gallery.innerHTML = '<p>لا توجد قرى متاحة لهذه المدينة.</p>';
+                        moreLink.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error fetching villages:', error));
+
+
+        } else {
+            // If no city is selected, show the default title
+            titleElement.textContent = 'القرى الفلسطينية في فلسطين';
+            gallery.innerHTML = '<p>اختر مدينة لعرض القرى التابعة لها.</p>';
+            moreLink.style.display = 'none';
+        }
+    }
+
+
+
+</script>

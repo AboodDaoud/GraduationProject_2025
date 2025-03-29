@@ -1,0 +1,346 @@
+﻿@model List<GraduationProject.Models.MediaArchive>
+@{
+    ViewData["Videoarchive"] = "Video archive";
+    int archiveType = ViewBag.ArchiveType ?? 0;
+    var validArchiveTypes = new List<int> { 0, 1, 2, 3, 4 };
+}
+<style>
+    .archive-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .archive-item {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+        .archive-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            max-width: 300px; /* You can adjust this as per the design */
+        }
+
+        .archive-item p {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+</style>
+<input type="hidden" id="archiveType" value="@archiveType" />
+<div id="filteredResults">
+    <div class="search-filter-container">
+        <!-- المدينة -->
+        <div class="palestine-filter-group">
+            <span class="palestine-filter-label">المدينة</span>
+            <select id="cityFilter" class="palestine-filter-select" name="city">
+                <option value="0">الكل</option>
+                @if (ViewBag.Cities != null)
+                {
+                    @foreach (var city in ViewBag.Cities)
+                    {
+                        <option value="@city.City_Id" selected="@(ViewBag.City != null && ViewBag.City == city.City_Id ? "selected" : null)">@city.City_Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <!-- التصنيف -->
+        <div class="palestine-filter-group">
+            <span class="palestine-filter-label">التصنيف</span>
+            <select id="categoryFilter" class="palestine-filter-select">
+                @*<option value="0">الكل</option>*@
+                @if (ViewBag.Categories != null)
+                {
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        bool isSelected = ViewBag.ArchiveType == category.CategoryId;
+                        <option value="@category.CategoryId" selected="@(isSelected ? "selected" : null)">@category.CategoryName</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <!-- التاريخ -->
+        <div class="palestine-filter-group">
+            <span class="palestine-filter-label">التاريخ</span>
+            <div class="palestine-date-group">
+                <span class="palestine-date-label">من</span>
+                <input type="number" id="fromYear" class="palestine-filter-select" value="@(ViewBag.FromYear ?? 1900)" min="1900" max="3000" />
+                <span class="palestine-date-label">إلى</span>
+                <input type="number" id="toYear" class="palestine-filter-select" value="@(ViewBag.ToYear ?? 3000)" min="1900" max="3000" />
+            </div>
+        </div>
+
+        <div class="palestine-divider"></div>
+
+        <!-- ترتيب حسب -->
+        <div class="palestine-filter-group">
+            <span class="palestine-filter-label">ترتيب حسب</span>
+            <select id="sortBy" class="palestine-filter-select">
+                <option value="oldest" selected="@(ViewBag.SortBy == "oldest" ? "selected" : null)">الأقدم للأحدث</option>
+                <option value="newest" selected="@(ViewBag.SortBy == "newest" ? "selected" : null)">الأحدث للأقدم</option>
+            </select>
+        </div>
+        <!-- Filter Button -->
+        <div class="palestine-filter-group">
+            <button id="filterBtn" class="palestine-filter-button">تصفية</button>
+        </div>
+
+    </div>
+    @if (!validArchiveTypes.Contains(archiveType))
+    {
+        <div class="alert alert-danger" style="margin-top: 40px;width: 1200px;">
+            نوع الأرشيف غير صالح. يرجى اختيار قيمة صحيحة.
+        </div>
+    }
+    else
+    {
+
+        if (Model.Any())
+        {
+            @if (archiveType == 1)
+            {
+                <!-- الفيديوهات -->
+                @if (ViewBag.Message != null)
+                {
+                    <div class="palestine-archive-container">
+                        <div class="palestine-archive-header" dir="rtl">
+                            <h2>أرشيف الفيديوهات</h2>
+                        </div>
+                        <div class="palestine-video-grid">
+                            <p>@ViewBag.Message</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="palestine-archive-container">
+                        <div class="palestine-archive-header" dir="rtl">
+                            <h2>أرشيف الفيديوهات</h2>
+                        </div>
+                        <div class="palestine-video-grid">
+                            @foreach (var media in Model)
+                            {
+                                // Extract video ID from YouTube URL
+                                string videoId = "";
+                                if (media.MediaUrl.Contains("youtube.com") || media.MediaUrl.Contains("youtu.be"))
+                                {
+                                    var uri = new Uri(media.MediaUrl);
+                                    var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+                                    videoId = query["v"] ?? uri.Segments.Last();
+                                }
+
+                                // Generate YouTube thumbnail URL or use default
+                                string thumbnailUrl = !string.IsNullOrEmpty(videoId)
+                                ? $"https://img.youtube.com/vi/{videoId}/hqdefault.jpg"
+                                : "/images/default-thumbnail.jpg";
+
+                                <div class="palestine-video-card">
+                                    <!-- Use YouTube thumbnail instead of the video link -->
+                                    <img src="@thumbnailUrl" alt="@media.Title" class="palestine-video-thumbnail">
+
+                                    <div class="palestine-video-overlay">
+                                        <div>
+                                            <div class="palestine-video-category">
+                                                التصنيف: @(media.Category != null ? media.Category.CategoryName : "غير مصنف")
+                                            </div>
+                                            <h3 class="palestine-video-title">@media.Title</h3>
+                                        </div>
+                                        <div>
+                                            <p class="palestine-video-description">@media.Description</p>
+                                            <div class="palestine-video-date">تاريخ الإنشاء: @media.Year</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Play button triggers the video -->
+                                    <div class="palestine-play-button" onclick="openVideo('@Html.Raw(media.MediaUrl)')">
+                                        <svg class="palestine-play-icon" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Video Popup Modal -->
+                        <!-- Video Modal -->
+                        <div id="videoModal" class="modal" style="display: none;">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeVideo()">&times;</span>
+                                <div id="videoContainer"></div> <!-- YouTube video will be loaded here -->
+                            </div>
+                        </div>
+
+
+                    </div>
+                }
+
+            }
+            @if (archiveType == 2)
+            {
+                <!-- الصور -->
+                <div class="archive-wrapper">
+                    <div class="archive-header" dir="rtl">
+                        <h2>أرشيف الصور</h2>
+                    </div>
+                    <div class="archive-grid">
+                        @foreach (var media in Model)
+                        {
+                            <div class="archive-item">
+                                <!-- Dynamically set the alt text and image source -->
+                                <img src="@media.MediaUrl" alt="@media.Title" />
+                                <p>@media.Description</p>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            }
+            @if (archiveType == 3)
+            {
+                <div class="palestinian-archive-container">
+                    <div class="archive-content" dir="rtl">
+                        <h2>أرشيف الصوتيات</h2>
+                    </div>
+                    <div class="audio-collection-grid">
+                        @foreach (var audio in Model)
+                        {
+                            <div class="audio-item @audio.Category">
+                                <!-- Dynamically apply category classes -->
+                                <div class="icon-wrapper">
+                                    <img src="../../img/fakeimage.png" alt="شريط صوت">
+                                </div>
+                                <div class="audio-details">
+                                    <h3 class="audio-item-title">@audio.Title</h3> <!-- Dynamic title -->
+                                    <p class="audio-item-description">
+                                        @audio.Description
+                                    </p>
+                                    <div class="audio-info">
+                                        <span class="source-category">المصدر - @audio.City.City_Name</span> <!-- Dynamic city -->
+                                        <span>التصنيف: @audio.Category.CategoryName</span> <!-- Dynamically display category name -->
+                                    </div>
+                                    <!-- Audio Player -->
+                                    <audio controls>
+                                        <source src="@audio.MediaUrl" type="audio/mpeg"> <!-- Assuming the audio URL is in MediaUrl -->
+                                        Your browser does not support the audio element
+                    </audio>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (archiveType == 4)
+            {
+
+            }
+
+        }
+        else
+        {
+            <div class="alert alert-danger" style="margin-top: 40px;width: 1200px;">
+                لا يوجد ارشيفات متاحة
+            </div>
+        }
+    }
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        const fromYearInput = $('#fromYear');
+        const toYearInput = $('#toYear');
+
+        fromYearInput.val(1900); // Default start year
+        toYearInput.val(new Date().getFullYear()); // Current year
+    });
+    $.noConflict();
+    jQuery(document).ready(function ($) {
+        $(document).on('click', '#filterBtn', function () {
+            var city = $('#cityFilter').val();
+            var categoryId = $('#categoryFilter').val();
+            var fromYear = $('#fromYear').val();
+            var toYear = $('#toYear').val();
+            var sortBy = $('#sortBy').val();
+            console.log(fromYear);
+            console.log(toYear);
+            console.log(sortBy);
+
+            fetch('/ArchiveDetails/Filter?' + new URLSearchParams({
+                city: city,
+                categoryId: categoryId,
+                fromYear: fromYear,
+                toYear: toYear,
+                sortBy: sortBy,
+                archiveType: categoryId
+            }))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('filteredResults').innerHTML = data
+                })
+                .catch(error => {
+                    alert('حدث خطأ في التصفية.');
+                });
+        });
+    });
+
+    function openVideo(videoUrl) {
+        console.log("Opening video:", videoUrl); // Debugging
+
+        var modal = document.getElementById("videoModal");
+        var videoContainer = document.getElementById("videoContainer");
+
+        // Clear existing content to avoid duplicate iframes
+        videoContainer.innerHTML = "";
+
+        // Check if the URL is a YouTube link
+        if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
+            // Extract video ID
+            let videoId = videoUrl.split("v=")[1]?.split("&")[0] || videoUrl.split("youtu.be/")[1];
+
+            if (!videoId) {
+                alert("Invalid YouTube URL!");
+                return;
+            }
+
+            // Create an iframe for YouTube
+            let iframe = document.createElement("iframe");
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            iframe.width = "100%";
+            iframe.height = "500";
+            iframe.allow = "autoplay; encrypted-media";
+            iframe.allowFullscreen = true;
+            iframe.frameBorder = "0";
+
+            // Append to container
+            videoContainer.appendChild(iframe);
+        } else {
+            alert("Unsupported video format. Please use a YouTube link.");
+            return;
+        }
+
+        modal.style.display = "flex";
+    }
+
+    // Close video function
+    function closeVideo() {
+        var modal = document.getElementById("videoModal");
+        var videoContainer = document.getElementById("videoContainer");
+
+        // Clear iframe to stop video playback
+        videoContainer.innerHTML = "";
+        modal.style.display = "none";
+    }
+
+</script>

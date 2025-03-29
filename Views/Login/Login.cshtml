@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "_LoginLayout";
+}
+
+@model GraduationProject.Models.LoginViewModel
+
+<div class="login-card">
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index" style="text-decoration: none; color: inherit;">
+            <img src="../../img/Group.png" alt="Logo" />
+        </a>
+    </div>
+    <h1>تسجيل الدخول</h1>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <form asp-action="Login" method="post">
+        <div class="form-group">
+            <label asp-for="Email">البريد الإلكتروني</label>
+            <input asp-for="Email" placeholder="example@gmail.com">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">كلمة المرور</label>
+            <input asp-for="Password" type="password" placeholder="كلمة المرور">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        @if (ViewData.ModelState.Any(m => m.Value.Errors.Count > 0))
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+
+        <button type="submit" class="submit-btn">تسجيل الدخول</button>
+        <div class="social-login">
+            <button type="button" class="social-btn">
+                <img src="../../img/image 157.png" alt="Google" />
+                Google
+            </button>
+            <button type="button" class="social-btn">
+                <img src="../../img/image 156.png" alt="Facebook" />
+                Facebook
+            </button>
+        </div>
+        <div class="signup-text">
+            لا تمتلك حساب؟ <a asp-controller="Register" asp-action="Register">إنشاء حساب</a>
+        </div>
+    </form>
+</div>

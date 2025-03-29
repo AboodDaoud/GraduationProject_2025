@@ -1,0 +1,172 @@
+﻿@model SelectedCityViewModel
+@{
+    ViewData["Title"] = @Model.City_Name;
+}
+<!-- 3 -->
+<div class="slideshow-container">
+    <div class="slides" style="background-image: url('@Model.City_ImageUrl')"></div>
+
+    <div class="text" id="slide-text">
+        <h2>@Model.City_Name</h2>
+        <p dir="rtl" style="display: inline-block; white-space: nowrap;">
+            @Model.City_Description <span dir="ltr">...</span> @Model.City_Highlights
+        </p>
+        <a href="#" class="button">ابدأ جولتك الآن</a>
+    </div>
+</div>
+<!-- 4 -->
+<div class="container4">
+    <div class="content4" dir="rtl">
+        <h2>@Model.City_Name </h2>
+        <p>
+            @Model.Detailed_Information
+
+        </p>
+        <p>
+            المساحة: حوالي @Model.City_Area كم².
+        </p>
+        <p>
+            عدد السكان: حوالي @Model.City_Population مليون نسمة.
+        </p>
+        <p>
+            تعرف على أشهر القرى في @Model.City_Name اضغط هنا...
+            <a href="/Villages/Index?cityId=@Model.City_Id" class="frame">
+                اضغط هنا
+            </a>
+
+
+
+        </p>
+    </div>
+</div>
+<!-- 5 -->
+<div class="historical-landmarks">
+    <h2>المعالم التاريخية والأثرية </h2>
+    <div class="landmarks-gallery">
+        @foreach (var landmark in Model.Landmarks)
+        {
+            <div class="landmark-item">
+                <img src="../img/@landmark.Image_Path" alt="@landmark.Landmark_Name">
+                <p>@landmark.Landmark_Name</p>
+            </div>
+        }
+    </div>
+
+</div>
+<!-- 6 -->
+<div class="heritage-container">
+    <div class="heritage-content" dir="rtl">
+        <h2>التراث الثقافي والحرف اليدوية</h2>
+        <p>تعرف على الحرف التقليدية والصناعات اليدوية في غزة.</p>
+        <h3>"حرفة الفخار في غزة: إرث يتحدى الزمن"</h3>
+        <p>
+            صناعة الفخار في غزة تُعد من أقدم الحرف اليدوية التي توارثتها الأجيال. هذه الحرفة تجسد العلاقة العميقة بين
+            الإنسان والطين، حيث يتم تشكيل قطع فنية تعبر عن التراث الفلسطيني العريق.
+        </p>
+        <p>
+            <strong>تاريخ الحرفة:</strong><br>"يعود تاريخ صناعة الفخار في غزة إلى أكثر من 4000 عام، حيث استخدمت
+            الأواني الفخارية في الحياة اليومية والاحتفالات."
+        </p>
+        <p><strong>أماكن انتشارها:</strong><br>تشتهر مناطق مثل حي الزيتون وصبرة في غزة بورش صناعة الفخار.</p>
+    </div>
+    <div class="heritage-media">
+        <div class="video-overlay">
+            <img src="../img/a.png" alt="Image Description">
+            <div class="video-text">
+                <h4>"الفخار الفلسطيني: فن متجذر في التاريخ"</h4>
+                <p>وصف الفيديو: شاهد رحلة تحويل الطين إلى قطع فنية تجسد تراث غزة العريق في حرفة الفخار اليدوية.</p>
+                <p>تاريخ الإنشاء: 1/12/2024</p>
+            </div>
+            <div class="play-button">&#9658;</div>
+        </div>
+    </div>
+</div>
+<!-- 7 -->
+<div class="archive-section">
+    <h2>الصور والفيديوهات</h2>
+    <p> صور قديمة وحديثة لغزة، بالإضافة إلى فيديوهات وثائقية تُظهر الحياة اليومية، الأسواق، والمعالم التاريخية</p>
+    <div class="archive-gallery">
+        <a href="https://youtu.be/B4xLDrD8Ftw?si=S4k9U7Y6KvnRgirL" class="archive-container">
+            <div class="custom-archive-video">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/B4xLDrD8Ftw" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+            <div class="archive-overlay">
+                <div class="archive-text">
+                    <h3>القدس</h3>
+                    <p>عاصمة فلسطين الأبدية ومهد الأديان السماوية، تجمع بين التاريخ والثقافة <span>المزيد</span></p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="archive-container">
+            <div class="custom-archive-video">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/AVRO9lYFwkU" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+            <div class="archive-overlay">
+                <div class="archive-text">
+                    <h3>يافا</h3>
+                    <p>عروس البحر، مدينة ساحلية تمتاز بتنوعها الثقافي وجمالها. <span>المزيد</span></p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="archive-container">
+            <div class="custom-archive-video">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/tTm83nQGWis" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+            <div class="archive-overlay">
+                <div class="archive-text">
+                    <h3>الخليل</h3>
+                    <p>مدينة العنب والصناعة، تضم الحرم الإبراهيمي الشريف. <span>المزيد</span></p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="archive-container">
+            <div class="custom-archive-video">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/GapxFG5Ny8w" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+            <div class="archive-overlay">
+                <div class="archive-text">
+                    <h3>بيت لحم</h3>
+                    <p>مدينة السلام، مسقط رأس السيد المسيح عليه السلام. <span>المزيد</span></p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="archive-container">
+            <div class="custom-archive-video">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/40t_tX8TaWM" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+            <div class="archive-overlay">
+                <div class="archive-text">
+                    <h3>غزة</h3>
+                    <p>مدينة الصمود والإرث التاريخي، تقع على ساحل البحر المتوسط. <span>المزيد</span></p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- 8 -->
+<div class="new-blog-section">
+    <h2 class="new-blog-title">
+        المقالات والمدونات
+
+    </h2>
+    <div class="new-blog-card">
+        <div class="new-content">
+            <h2> "غزة: مدينة التاريخ والصمود"</h2>
+            <p>
+                غزة، تلك المدينة الساحلية العريقة التي عاشت منذ آلاف السنين على ضفاف التاريخ. هي ليست مجرد مكان؛
+                إنها حكاية ترويها حجارة أسواقها القديمة، وأمواج بحرها الذي حمل أحلام البحارة.
+            </p>
+            <h4>
+                غزة ليست فقط مدينة؛ إنها رمز للصمود، ومرآة تعكس روح فلسطين بألوانها وتفاصيلها.
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+

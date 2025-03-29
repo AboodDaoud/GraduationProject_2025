@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GraduationProject</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Cities.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/VirtualToursAR2.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/VirtualTours AR).css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/archives.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Blog.CSS" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/NotableFigures.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Whowe.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Contact us.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/gaza.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/gaza2.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Archive/Audioarchive.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Archive/Photoarchive.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Archive/Textarchive.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Archive/Videoarchive.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Questions.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Contact us.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CitiesOfPalestine.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Login/Login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Login/CreateAccount.css" asp-append-version="true" />
+
+
+
+    <link rel="stylesheet" href="~/GraduationProject.styles.css" asp-append-version="true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    @RenderSection("Head", required: false)
+</head>
+<body>
+    <header>
+        @* <!-- 1 -->
+        <div class="navbar">
+            <div class="logo">
+                <img src="../img/Group.png" alt="Logo">
+                <span>تراثنا تراث فلسطين</span>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="بحث">
+            </div>
+            <div class="actions">
+                <button id="languageButton" class="icon" onclick="toggleLanguage()">EN</button>
+                <button id="notificationButton" class="icon" onclick="toggleNotifications()">🔔</button>
+                @*<button>تسجيل الدخول</button>
+                <a asp-controller="Login" asp-action="Login">تسجيل الدخول</a>
+            </div>
+        </div>
+        <!-- 2 -->
+        <div class="navbar2">
+            <a asp-controller="Home" asp-action="Index">الرئيسية</a>
+            <a asp-controller="Cities" asp-action="Index">مدن فلسطين</a>
+            <a asp-controller="VirtualTours" asp-action="Index">الجولات الافتراضية (AR)</a>
+            <a asp-controller="Archives" asp-action="Index">الأرشيف</a>
+            <a asp-controller="Blog" asp-action="Index">المدونة </a>
+
+            <div class="dropdown">
+                <a href="#" class="dropdown">المزيد</a>
+                <div class="dropdown-content">
+                    <a asp-controller="NotableFigures" asp-action="Index">شخصيات بارزة</a>
+                    <a asp-controller="Whowe" asp-action="Index">من نحن </a>
+                    <a asp-controller="ContactUs" asp-action="Index">اتصل بنا</a>
+                    <a asp-controller="Questions" asp-action="Index">الأسئلة الشائعة</a>
+                </div>
+            </div>
+        </div> *@
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<foter>
+    <div class="footer">
+    <div class="footer-columns">
+    <div class="footer-column">
+    <div class="footer-subscription">
+    <div class="logo2">
+    <img src="../img/Group.png" alt="Logo">
+    </div>
+    <div class="footer-subscription">
+    <p>
+    <br>"اشترك لتصلك أحدث المقالات والجولات الافتراضية مباشرة إلى بريدك <span style="color: #6d7d17;">الإلكتروني</span>"
+    </p>
+    </div>
+
+    </div>
+    <div class="search-container">
+    <span class="search-icon">✉️</span>
+
+    <input type="text" placeholder="البريد الإلكتروني">
+    <button>اشترك الآن</button>
+
+    </div>
+    </div>
+    <div class="footer-column">
+    <h3>روابط التنقل السريعة</h3>
+    <ul>
+    <li><a href="#">الرئيسية</a></li>
+    <li><a href="#">القرى الفلسطينية</a></li>
+    <li><a href="#">الجولات الافتراضية (AR)</a></li>
+    <li><a href="#">الشخصيات البارزة</a></li>
+    <li><a href="#">المدونة</a></li>
+    </ul>
+    </div>
+    <div class="footer-column">
+    <h3>تواصل معنا</h3>
+    <ul>
+    <li><a href="#">من نحن</a></li>
+    <li><a href="#">اتصل بنا</a></li>
+    <li><a href="#">الأسئلة الشائعة</a></li>
+    </ul>
+    </div>
+    <div class="footer-column">
+    <h3>معلومات التواصل</h3>
+    <ul>
+    <li>البريد الإلكتروني:<br> info@palheritage.com</li>
+    <li>رقم الهاتف:<br> +970-123-4567</li>
+    <li>العنوان:<br> شارع التراث، القدس، فلسطين</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <div class="footer-bottom">
+    <p>جميع الحقوق محفوظة © 2024 لدى موقع تراث فلسطين.</p>
+
+    <div class="social-icons">
+    <a href="https://wa.me/your-number" target="_blank"><i class="bi bi-whatsapp"></i></a>
+    <a href="https://www.facebook.com/your-profile" target="_blank"><i class="bi bi-facebook"></i></a>
+    <a href="https://www.instagram.com/your-profile" target="_blank"><i class="bi bi-instagram"></i></a>
+    <a href="mailto:your-email@example.com"><i class="bi bi-envelope"></i></a>
+    </div>
+    </div>
+    </foter>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Home.js" asp-append-version="true"></script>
+    <script src="~/js/VirtualTours AR.js" asp-append-version="true"></script>
+    <script src="~/js/Questions AR.js" asp-append-version="true"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>*@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

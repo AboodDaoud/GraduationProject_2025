@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "الارشيف";
+}
+
+<!-- 3 -->
+<div class="slideshow">
+    <div class="text">
+        <h2>“نوثق كل لحظة لتتعرف على تاريخ فلسطين”</h2>
+        <p>
+            "تعرف على تاريخ فلسطين من خلال الصور والفيديوهات والصوتيات والرسائل التي نوثقها في ارشيفنا الرقمي ."
+        </p>
+    </div>
+</div>
+<!-- 4 -->
+<div class="content4">
+    <div class="content42">
+        <h2>الأرشيف الفلسطيني</h2>
+        <p>
+            "استكشف أرشيف التراث الفلسطيني الغني! يحتوي هذا القسم على مجموعة واسعة من التوثيقات التي تشمل الصور،
+            الفيديوهات، النصوص التاريخية، والتسجيلات الصوتية التي تحكي قصة فلسطين وثقافتها."
+        </p>
+    </div>
+    <div class="gallery">
+        <a asp-controller="ArchiveDetails" asp-action="Index" asp-route-categoryId="1" class="image-container">
+            <img src="../img/Rectangle 3845.png " alt="Image 1">
+            <div class="overlay">
+                <div class="text">
+                    <h3> فيديوهات</h3>
+                    <P>"مشاهد حية توثق الفلكلور، المهرجانات،<br /> والأحداث الثقافية."</P>
+                    <button class="button">تصفح</button>
+                </div>
+            </div>
+        </a>
+        <a asp-controller="ArchiveDetails" asp-action="Index" asp-route-categoryId="2" class="image-container">
+            <img src="../img/Rectangle 3846.png" alt="Image 1">
+            <div class="overlay">
+                <div class="text">
+                    <h3>صور </h3>
+                    <P>"صور تعبر عن التراث الفلسطيني،<br /> من الأزياء إلى الفنون الشعبية."</P>
+                    <button class="button">تصفح</button>
+
+                </div>
+            </div>
+
+        </a>
+        <a asp-controller="ArchiveDetails" asp-action="Index" asp-route-categoryId="3" class="image-container">
+            <img src="../img/Rectangle 3847.png" alt="Image 1">
+            <div class="overlay">
+                <div class="text">
+                    <h3>صوتيات</h3>
+                    <p>"تسجيلات لأغاني فلسطينية وأهازيج شعبية."</p>
+                    <button class="button">تصفح</button>
+
+                </div>
+            </div>
+
+        </a>
+        <a asp-controller="ArchiveDetails" asp-action="Index" asp-route-categoryId="4" class="image-container">
+            <img src="../img/Rectangle 3848.png" alt="Image 1">
+            <div class="overlay">
+                <div class="text">
+                    <h3>نصوص</h3>
+                    <p>"مقالات، قصص، وأبحاث عن التراث الفلسطيني."</p>
+                    <button class="button">تصفح</button>
+
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

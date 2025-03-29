@@ -1,0 +1,96 @@
+﻿@model List<Blog>
+@{
+    ViewData["Title"] = "المدونة";
+}
+
+<div class="slideshow-container">
+    <div class="slides" style="background-image: url('../img/Rectangle\ 51.png')"></div>
+    <div class="slides" style="background-image: url('../img/Rectangle\ 23.png');"></div>
+    <div class="slides" style="background-image: url('../img/Rectangle\ 5.png');"></div>
+
+    <div class="text">
+        <h2>"اكتشف حكايات التراث الفلسطيني"</h2>
+        <p>
+            "رحلة عبر القرى الفلسطينية والتاريخ العريق، حيث نروي قصص الأرض، الإنسان، والموروث الثقافي. استكشف أرشيف
+            الصور، الحكايات الشعبية، وذاكرة الوطن التي لا تُنسى."
+        </p>
+        @*<a href="#" class="button"> تعرف على ذاكرة فلسطين</a>*@
+    </div>
+
+    @*    <a class="next" onclick="plusSlides(-1)">&#10095;</a>
+    <a class="prev" onclick="plusSlides(1)">&#10094;</a>
+
+
+    <div class="dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    </div>*@
+</div>
+<!-- 5 -->
+<div class="tour-section">
+    <div class="tour-content">
+        <h2 class="heading"> حكايات الجدات </h2>
+        <p>
+            "حكاوي الجدات هي جزء أصيل من التراث الفلسطيني، حيث تتناقل الأجيال القصص والحكايات التي تحمل دروسًا وحكمًا
+            وقيمًا عن الحياة، الحب، الشجاعة، والمغامرة. تلك الحكايات، التي تُحكى بصوت دافئ ومليء بالتفاصيل، تعكس صلة
+            الإنسان بالأرض والطبيعة وتستحضر التاريخ والثقافة الفلسطينية. تُعتبر هذه الحكايات جسرًا بين الماضي
+            والحاضر، ووسيلة للحفاظ على الهوية الثقافية ونقلها للأجيال القادمة."
+        </p>
+        <p>
+            "تعتبر حكاوي الجدات أيضًا وسيلة لتوثيق الأحداث التاريخية والتجارب الشخصية التي عايشها الشعب الفلسطيني،
+            مما يساهم في الحفاظ على الذاكرة الجماعية للأمة. من خلال هذه القصص، يتم نقل القيم الأخلاقية مثل الكرم،
+            الصدق، وحب الأرض، مما يعزز الروابط بين الأجيال ويقوي الانتماء إلى الهوية الفلسطينية."
+        </p>
+        <div class="action-buttons">
+            <a href="Tales.html" class="action-button">اقرأ الحكاية </a>
+        </div>
+    </div>
+    <div class="video-wrapper">
+        <video controls>
+            <source src="tour-video.mp4" type="video/mp4">
+            المتصفح لديك لا يدعم عرض الفيديو.
+        </video>
+    </div>
+</div>
+<!-- 6 -->
+<div class="blog-section">
+    <h2>أبرز المدونات</h2>
+    <p>"استكشف الحكايات التاريخية والمحطات البارزة التي شكلت هوية فلسطين عبر الزمن."</p>
+
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var blog in Model)
+        {
+            <div class="blog-card">
+                <div class="content">
+                    <h3>@blog.Title</h3>
+                    <p>@blog.Content</p>
+                    <p><strong>By:</strong> @blog.User?.UserName</p>
+                    <p class="pBloq">"@blog.Quote"</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="no-blogs-message">لا توجد مدونات متاحة في الوقت الحالي.</p>
+    }
+</div>
+
+<div class="blog-section2">
+    <h2> يمكنك اضافة مدونة أو مقال هنا </h2>
+
+    <form asp-controller="Blog" asp-action="Create" method="post">
+        <div class="form-group">
+            <input type="text" name="Title" class="text-input" placeholder="عنوان المدونة..." required />
+        </div>
+        <div class="form-group">
+            <textarea name="Content" class="text-area" placeholder="تفاصيل المدونة الخاصة بك هنا..." rows="6" required></textarea>
+        </div>
+        <div class="form-group">
+            <input type="text" name="Category" class="text-input" placeholder="التصنيف" required />
+        </div>
+        <button type="submit" class="submit-button">مشاركة</button>
+    </form>
+</div>

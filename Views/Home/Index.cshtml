@@ -1,0 +1,151 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "الرئيسية";
+}
+
+<div class="slideshow-container">
+    @for (int i = 0; i < Model.Slides.Count; i++)
+    {
+        <div class="slides @(i == 0 ? "active" : "")" style="background-image: url('@Model.Slides[i].Image_Url');">
+        </div>
+    }
+    <div class="text">
+        <h2>رحلة افتراضية عبر تاريخ فلسطين</h2>
+        <p>استمتع بجولات تفاعلية تنقلك إلى أهم المواقع التاريخية والثقافية الفلسطينية...</p>
+        <a asp-controller="VirtualTours" asp-action="Index" class="button">ابدأ جولتك الآن</a>
+    </div>
+
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+
+    <div class="dots">
+        @for (int i = 0; i < Model.Slides.Count; i++)
+        {
+            <span class="dot @(i == 0 ? "active" : "")" onclick="currentSlide(@(i + 1))"></span>
+        }
+    </div>
+</div>
+
+<!-- 4 -->
+<div class="container4">
+    <div class="content4" dir="rtl">
+        <h2>من نحن</h2>
+        <p>
+            نحن فريق متخصص للحفاظ على تراثنا الفلسطيني الغني وتزويد زوار موقعنا بتجربة غامرة تمكنكم من استكشاف
+            الجوانب الثقافية والتاريخية لفلسطين بطريقة حديثة ومبتكرة.
+        </p>
+        <p>
+            رؤيتنا هي توثيق التراث الفلسطيني والمحافظة عليه للأجيال القادمة، باستخدام التقنيات الحديثة التي تتيح
+            استكشاف الأماكن والقصص التراثية من أي مكان في العالم.
+        </p>
+        <p>"انضموا إلينا في هذه الرحلة لاستكشاف تاريخنا المشترك ومشاركة قصص التراث التي تعني لكم الكثير."</p>
+        <p>
+            يمكننا ما يشبه الحفاظ على التراث الفلسطيني وتسهيل الوصول إليه في أي وقت ومن أي مكان. <a asp-controller="Whowe" asp-action="Index">المزيد</a>
+        </p>
+    </div>
+
+    <div class="image4">
+        <img src="../img/Rectangle 11.png" alt="Image Description">
+    </div>
+</div>
+<!-- 5 -->
+<div class="section">
+    <h2>
+        مدن فلسطين
+    </h2>
+    <div class="gallery">
+        @foreach (var city in Model.Cities.Take(6))
+        {
+            <a asp-controller="MainCity" asp-action="Index" asp-route-cityId="@city.City_Id" class="image-container">
+                <img src="@city.City_ImageUrl" alt="@city.City_Name">
+                <div class="overlay">
+                    <div class="text">
+                        <h3>@city.City_Name</h3>
+                        <p>@city.City_Description <span>المزيد</span></p>
+                        <p>@city.City_Highlights</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+    <div class="button-container">
+        <a asp-controller="Cities" asp-action="Index" class="button">عرض المزيد</a>
+    </div>
+</div>
+<!-- 6 -->
+<div class="tour-section">
+    <div class="tour-content">
+        <h2 class="h2"> الجولات الافتراضية </h2>
+        <h2>"استكشف التراث الفلسطيني وكأنك هناك!"</h2>
+        <p>
+            من خلال تقنيات الجولات الافتراضية، يمكنك زيارة المواقع التراثية الأكثر جمالاً في فلسطين من أي مكان في
+            العالم.
+        </p>
+        <p>
+            إليك في هذا الفيديو تجربة تفاعلية للأصدقاء. يمكنك مشاهدته لبدء جولة عن المواقع المعروفة، ومعرفة
+            تفاصيل أكثر من خلال الضغط على زر "استكشف المزيد بالأسفل".
+        </p>
+        <div class="action-buttons">
+            <a asp-controller="VirtualTours" asp-action="Index" class="action-button">استكشف المزيد</a>
+            @*<a href="#" class="action-button secondary">الجولة التالية</a>*@
+        </div>
+    </div>
+    <div class="video-wrapper">
+        <video controls>
+            <source src="tour-video.mp4" type="video/mp4">
+            المتصفح لديك لا يدعم عرض الفيديو.
+        </video>
+    </div>
+</div>
+<!-- 7 -->
+<div class="new-video-section">
+    <h2 class="new-video-section-title">الأرشيف</h2>
+    <div class="new-video-gallery">
+        @foreach (var video in Model.Videos)
+        {
+            <a href="@video.Video_Url" class="new-video-container" target="_blank">
+                <div class="custom-video-container">
+                    <iframe width="100%" height="100%" src="@video.Video_Url" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="new-video-overlay">
+                    <div class="new-video-text">
+                        <h3 class="new-video-text-title">@video.Video_Title</h3>
+                        <p class="new-video-text-description">@video.Video_Description <span class="new-highlight">المزيد</span></p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+    <div class="new-video-button-container">
+        <a asp-controller="Archives" asp-action="index" class="new-video-button">الانتقال إلى الأرشيفات</a>
+    </div>
+</div>
+<div class="new-blog-section">
+    <h2 class="new-blog-title">المدونة</h2>
+
+    @if (Model.Blogs.Any())
+    {
+        @foreach (var blog in Model.Blogs)
+        {
+            <div class="new-blog-card">
+                <div class="new-content">
+                    <h3>@blog.Title</h3>
+                    <p>@blog.Content</p>
+                    <p class="new-quote">"@blog.Quote"</p>
+                </div>
+            </div>
+        }
+
+        <div class="new-video-button-container">
+            <a asp-controller="Blog" asp-action="index" class="new-video-button">عرض المزيد</a>
+        </div>
+    }
+    else
+    {
+        <p class="no-blogs-message">لا توجد مدونات متاحة في الوقت الحالي.</p>
+    }
+</div>
+
+
+
+<script src="../js/Home.js"></script>

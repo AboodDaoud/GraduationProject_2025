@@ -1,0 +1,66 @@
+﻿  <!-- 3 -->
+
+<div class="slideshow-container">
+    <div class="slides" style="background-image: url('../img/1111.png')"></div>
+    <div class="slides" style="background-image: url('../img/Rectangle\ 5.png')"></div>
+    <div class="slides" style="background-image: url('../img/1111.png')"></div>
+
+    <div class="text">
+        <h2>“المدن الفلسطينية و قراها”</h2>
+        <P>"تعرف على المدن والقرى الفلسطينية وعلى معالمها التراثية من خلال خريطة فلسطين التفصيلية ."</P>
+    </div>
+
+    @*    <a class="next" onclick="plusSlides(-1)">&#10095;</a>
+    <a class="prev" onclick="plusSlides(1)">&#10094;</a>*@
+
+
+    @*    <div class="dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    </div>*@
+</div>
+<div class="CA1-container">
+    @if (ViewBag.CitiesWithVillages != null && ViewBag.CitiesWithVillages.Count > 0)
+    {
+        bool hasAnyVillage = false;
+
+        foreach (var city in ViewBag.CitiesWithVillages)
+        {
+            if (city.Villages != null && city.Villages.Count > 0)
+            {
+                hasAnyVillage = true;
+
+                <div class="CA1-content22">
+                    <h2 class="CA1-title">قرى مدينة @city.CityName</h2>
+                    <div class="CA1-gallery">
+                        @foreach (var village in city.Villages)
+                        {
+                            <div class="CA1-gallery-item">
+                                <img src="@village.Village_ImageUrl" alt="@village.Village_Name">
+                                <p>
+                                    <strong>اسم القرية:</strong> @village.Village_Name<br>
+                                    <strong>الوصف:</strong> @village.Village_Description<br>
+                                    <strong>المعالم البارزة:</strong> @village.Village_Highlights
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="CA1-content22">
+                    <h2 class="CA1-title">مدينة @city.CityName</h2>
+                    <p>لا توجد قرى متاحة لهذه المدينة.</p>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        <p>لا توجد مدن أو قرى متاحة.</p>
+    }
+</div>
+
+

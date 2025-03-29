@@ -1,0 +1,228 @@
+
+.class1 {
+    position: relative;
+    max-width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 20px;
+    background-image: url('../../img/1111.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.class2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.class3 {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 15px;
+}
+
+.class4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.class5 {
+    color: #666;
+    font-size: 14px;
+}
+
+.class6 {
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 5px 25px 5px 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+    /*  ⁄œÌ·  ’„Ì„ «·ﬁ«∆„… «·„‰”œ·… */
+    .class6 option {
+        padding: 12px 16px;
+        background-color: white;
+        position: relative;
+    }
+
+        /* ≈÷«›… «·Œÿ «·›«’· „‰ Œ·«· border-bottom */
+        .class6 option:not(:last-child) {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+        }
+
+        /*  ’„Ì„ «·ŒÌ«— «·„Õœœ */
+        .class6 option:checked,
+        .class6 option:hover {
+            background-color: #0066cc;
+            color: white;
+        }
+
+.class7 {
+    width: 1px;
+    height: 30px;
+    background-color: #808000;
+    margin: 0 10px;
+}
+
+.class8 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.class9 {
+    color: #666;
+    font-size: 14px;
+}
+
+.class6:focus {
+    outline: none;
+}
+
+/* 5 */
+.class11 {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    min-width: 300px;
+    /* ·÷„«‰ √‰ «·‰’ ·« Ì’»Õ √’€— „‰ Õœ „⁄Ì‰ */
+    text-align: right;
+    /* ·÷„«‰ √‰ «·‰’ Ì»œ√ „‰ «·Ì„Ì‰ */
+}
+
+    .class11 h2 {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        color: olive;
+    }
+
+        .class11 h2::before {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid olive;
+            margin-left: 10px;
+        }
+
+
+/* 5 */
+
+.class12 {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 15px;
+}
+
+.class13 {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    background: #fff;
+}
+
+    .class13:hover {
+        transform: translateY(-5px);
+    }
+
+    .class13 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .class13:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Special sizing for specific items */
+    .class13:nth-child(3),
+    .class13:nth-child(4) {
+        grid-column: span 1;
+        aspect-ratio: 1/1;
+    }
+
+    .class13:nth-child(1),
+    .class13:nth-child(2),
+    .class13:nth-child(5),
+    .class13:nth-child(6) {
+        grid-column: span 1;
+        aspect-ratio: 3/4;
+    }
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .class12 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .class12 {
+        grid-template-columns: 1fr;
+    }
+
+    .class13 {
+        grid-column: span 1 !important;
+    }
+}
+
+/* Loading animation */
+.class13::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+    background-size: 200% 100%;
+    animation: class14 1.5s infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.class13.loading::before {
+    opacity: 1;
+}
+
+@keyframes class14 {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

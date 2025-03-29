@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Videoarchive"] = "Video archive";
+    Layout = "_Layout";
+    int archiveType = ViewBag.ArchiveType ?? 0;
+    var validArchiveTypes = new List<int> { 0, 1, 2, 3, 4 };
+}
+<style>
+    .palestine-filter-button {
+        background-color: olive; /* Primary blue */
+        color: #fff; /* White text */
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+        /* Hover Effect */
+        .palestine-filter-button:hover {
+            background-color: darkolivegreen; /* Darker blue */
+            transform: scale(1.05);
+        }
+
+        /* Active (Click) Effect */
+        .palestine-filter-button:active {
+            background-color: olivedrab; /* Even darker blue */
+            transform: scale(0.98);
+        }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        position: relative;
+        background: #000;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 800px;
+        text-align: center;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.3);
+        padding: 5px 12px;
+        border-radius: 50%;
+        transition: 0.3s;
+    }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 0.6);
+            color: black;
+        }
+
+    #videoPlayer {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="historical-slideshow">
+    <div class="historical-text">
+        <h2>
+            “نوثق كل لحظة لتتعرف على تاريخ فلسطين”
+        </h2>
+        <p>
+            "تعرف على تاريخ فلسطين من خلال الصور والفيديوهات والصوتيات والرسائل التي نوثقها في ارشيفنا الرقمي."
+        </p>
+    </div>
+</div>
+
+
+
+<partial name="_FilteredMediaList" model="Model" />
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+@*<script>
+
+    $(document).ready(function () {
+        const fromYearInput = $('#fromYear');
+        const toYearInput = $('#toYear');
+
+        // Set default date range
+        fromYearInput.val('1900-01-01'); // Default start date
+        toYearInput.val(new Date().toISOString().split('T')[0]); // Today's date
+    });
+    $.noConflict();
+    jQuery(document).ready(function ($) {
+        $('#filterBtn').click(function () {
+            var city = $('#cityFilter').val();
+            var categoryId = $('#categoryFilter').val();
+            var fromYear = $('#fromYear').val();
+            var toYear = $('#toYear').val();
+            var sortBy = $('#sortBy').val();
+
+            $.ajax({
+                url: '/ArchiveDetails/Filter',
+                type: 'GET',
+                data: {
+                    city: city,
+                    categoryId: categoryId,
+                    fromYear: fromYear,
+                    toYear: toYear,
+                    sortBy: sortBy,
+                    archiveType: @archiveType
+                            },
+                success: function (response) {
+                    $('#filteredResults').html(response);
+                },
+                error: function () {
+                    alert('حدث خطأ في التصفية.');
+                }
+            });
+        });
+    });
+
+
+    function openVideo(videoUrl) {
+        var modal = document.getElementById("videoModal");
+        var videoPlayer = document.getElementById("videoPlayer");
+
+        // Set the video source dynamically & start playing
+        videoPlayer.src = videoUrl;
+        videoPlayer.load(); // Ensure it reloads the new source
+        videoPlayer.play(); // Play after setting the source
+
+        modal.style.display = "flex";
+
+        // Close modal when clicking the close button
+        document.querySelector(".close").onclick = function () {
+            closeVideo();
+        };
+
+        // Close modal when clicking outside the video
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeVideo();
+            }
+        };
+    }
+
+    function closeVideo() {
+        var modal = document.getElementById("videoModal");
+        var videoPlayer = document.getElementById("videoPlayer");
+
+        modal.style.display = "none";
+
+        // Stop the video and remove the src to prevent unnecessary loading
+        videoPlayer.pause();
+        videoPlayer.src = "";
+        videoPlayer.load(); // Force browser to recognize the empty source
+    }
+</script>*@
+
